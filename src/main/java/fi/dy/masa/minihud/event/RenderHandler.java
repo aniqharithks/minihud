@@ -322,31 +322,33 @@ public class RenderHandler implements IRenderer
                 long day = (int) (timeDay / 24000);
                 // 1 tick = 3.6 seconds in MC (0.2777... seconds IRL)
                 int dayTicks = (int) (timeDay % 24000);
-                int hour = (int) ((dayTicks / 1000) + 6) % 24;
-                int min = (int) (dayTicks / 16.666666) % 60;
-                int sec = (int) (dayTicks / 0.277777) % 60;
+                int hour = (dayTicks / 1000 + 6) % 24;
+                int min = dayTicks * 3 / 50 % 60;
+                int sec = dayTicks * 18 / 5 % 60;
                 // Moonphase has 8 different states in MC
                 String moon = "Invalid";
-                switch ((int) day % 8)
+                String moonShort = "Invalid";
+                switch ((int) (day % 8))
                 {
-                    case 0: moon = "Full moon"; break;
-                    case 1: moon = "Waning gibbous"; break;
-                    case 2: moon = "Last quarter"; break;
-                    case 3: moon = "Waning crescent"; break;
-                    case 4: moon = "New moon"; break;
-                    case 5: moon = "Waxing crescent"; break;
-                    case 6: moon = "First quarter"; break;
-                    case 7: moon = "Waxing gibbous"; break;
+                    case 0: moon = "Full moon";       moonShort = "FM"; break;
+                    case 1: moon = "Waning gibbous";  moonShort = "WnG"; break;
+                    case 2: moon = "Last quarter";    moonShort = "LQ"; break;
+                    case 3: moon = "Waning crescent"; moonShort = "WnC"; break;
+                    case 4: moon = "New moon";        moonShort = "NM"; break;
+                    case 5: moon = "Waxing crescent"; moonShort = "WxC"; break;
+                    case 6: moon = "First quarter";   moonShort = "FQ"; break;
+                    case 7: moon = "Waxing gibbous";  moonShort = "WxG"; break;
                     default:
                 }
 
                 String str = Configs.Generic.DATE_FORMAT_MINECRAFT.getStringValue();
-                str = str.replace("{DAY}",  String.format("%d", day));
-                str = str.replace("{DAY_1}",String.format("%d", day + 1));
+                str = str.replace("{DAY}", String.format("%d", day));
+                str = str.replace("{DAY_1}", String.format("%d", day + 1));
                 str = str.replace("{HOUR}", String.format("%02d", hour));
-                str = str.replace("{MIN}",  String.format("%02d", min));
-                str = str.replace("{SEC}",  String.format("%02d", sec));
-                str = str.replace("{MOON}",  String.format("%s", moon));
+                str = str.replace("{MIN}", String.format("%02d", min));
+                str = str.replace("{SEC}", String.format("%02d", sec));
+                str = str.replace("{MOON}", moon);
+                str = str.replace("{MOON_SHORT}", moonShort);
 
                 this.addLine(str);
             }
