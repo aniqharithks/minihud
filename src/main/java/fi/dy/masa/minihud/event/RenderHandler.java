@@ -684,13 +684,11 @@ public class RenderHandler implements IRenderer
             }
         }
         else if (type == InfoToggle.ROTATION_YAW ||
-                 type == InfoToggle.ROTATION_PITCH ||
-                 type == InfoToggle.SPEED)
+                 type == InfoToggle.ROTATION_PITCH)
         {
             // Don't add the same line multiple times
             if (this.addedTypes.contains(InfoToggle.ROTATION_YAW) ||
-                this.addedTypes.contains(InfoToggle.ROTATION_PITCH) ||
-                this.addedTypes.contains(InfoToggle.SPEED))
+                this.addedTypes.contains(InfoToggle.ROTATION_PITCH))
             {
                 return;
             }
@@ -710,20 +708,18 @@ public class RenderHandler implements IRenderer
                 pre = " / ";
             }
 
-            if (InfoToggle.SPEED.getBooleanValue())
-            {
-                double dx = entity.getX() - entity.lastRenderX;
-                double dy = entity.getY() - entity.lastRenderY;
-                double dz = entity.getZ() - entity.lastRenderZ;
-                double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-                str.append(pre).append(String.format("speed: %.3f m/s", dist * 20));
-            }
-
             this.addLine(str.toString());
 
             this.addedTypes.add(InfoToggle.ROTATION_YAW);
             this.addedTypes.add(InfoToggle.ROTATION_PITCH);
-            this.addedTypes.add(InfoToggle.SPEED);
+        }
+        else if (type == InfoToggle.SPEED)
+        {
+            double dx = entity.getX() - entity.lastRenderX;
+            double dy = entity.getY() - entity.lastRenderY;
+            double dz = entity.getZ() - entity.lastRenderZ;
+            double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+            String.format("speed: %.3f m/s", dist * 20);
         }
         else if (type == InfoToggle.SPEED_HV)
         {
