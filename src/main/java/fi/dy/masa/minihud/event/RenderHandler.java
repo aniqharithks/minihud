@@ -569,6 +569,10 @@ public class RenderHandler implements IRenderer
         {
             this.addLine(String.format("BBS: %.2f", DataStorage.getInstance().getBlockBreakingSpeed()));
         }
+        else if (type == InfoToggle.SNEAKING && mc.player.isInSneakingPose())
+        {
+            this.addLine("§aSneaking");
+        }
         else if (type == InfoToggle.SPRINTING && mc.player.isSprinting())
         {
             this.addLine("§6Sprinting");
