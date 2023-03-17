@@ -454,7 +454,7 @@ public class RenderHandler implements IRenderer
                 {
                     try
                     {
-                        str.append(String.format(fmtStr, x, y, z));
+                        str.append(String.format(fmtStr, x, y, z, -x, -y, -z));
                     }
                     // Uh oh, someone done goofed their format string... :P
                     catch (Exception e)
@@ -493,7 +493,7 @@ public class RenderHandler implements IRenderer
                 {
                     try
                     {
-                        str.append(String.format(fmtStr, x, y, z));
+                        str.append(String.format(fmtStr, x, y, z, -x, -y, -z));
                     }
                     // Uh oh, someone done goofed their format string... :P
                     catch (Exception e)
