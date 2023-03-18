@@ -905,11 +905,13 @@ public class RenderHandler implements IRenderer
             }
         }
         else if (type == InfoToggle.LOOKING_AT_BLOCK ||
-                 type == InfoToggle.LOOKING_AT_BLOCK_CHUNK)
+                 type == InfoToggle.LOOKING_AT_BLOCK_CHUNK ||
+                 type == InfoToggle.LOOKING_AT_CHUNK)
         {
             // Don't add the same line multiple times
             if (this.addedTypes.contains(InfoToggle.LOOKING_AT_BLOCK) ||
-                this.addedTypes.contains(InfoToggle.LOOKING_AT_BLOCK_CHUNK))
+                this.addedTypes.contains(InfoToggle.LOOKING_AT_BLOCK_CHUNK) ||
+                this.addedTypes.contains(InfoToggle.LOOKING_AT_CHUNK))
             {
                 return;
             }
@@ -919,17 +921,24 @@ public class RenderHandler implements IRenderer
                 BlockPos lookPos = ((BlockHitResult) mc.crosshairTarget).getBlockPos();
                 String pre = "";
                 StringBuilder str = new StringBuilder(128);
+                str.append("Looking at ");
 
                 if (InfoToggle.LOOKING_AT_BLOCK.getBooleanValue())
                 {
-                    str.append(String.format("Looking at block: %d, %d, %d", lookPos.getX(), lookPos.getY(), lookPos.getZ()));
-                    pre = " // ";
+                    str.append(String.format("block: %d, %d, %d", lookPos.getX(), lookPos.getY(), lookPos.getZ()));
+                    pre = " / ";
                 }
 
                 if (InfoToggle.LOOKING_AT_BLOCK_CHUNK.getBooleanValue())
                 {
-                    str.append(pre).append(String.format("Block: %d, %d, %d in Sub-Chunk: %d, %d, %d",
-                            lookPos.getX() & 0xF, lookPos.getY() & 0xF, lookPos.getZ() & 0xF,
+                    str.append(pre).append(String.format("chunk block: %d, %d, %d",
+                            lookPos.getX() & 0xF, lookPos.getY() & 0xF, lookPos.getZ() & 0xF));
+                    pre = " / ";
+                }
+
+                if (InfoToggle.LOOKING_AT_CHUNK.getBooleanValue())
+                {
+                    str.append(pre).append(String.format("chunk: %d, %d, %d",
                             lookPos.getX() >> 4, lookPos.getY() >> 4, lookPos.getZ() >> 4));
                 }
 
@@ -937,6 +946,7 @@ public class RenderHandler implements IRenderer
 
                 this.addedTypes.add(InfoToggle.LOOKING_AT_BLOCK);
                 this.addedTypes.add(InfoToggle.LOOKING_AT_BLOCK_CHUNK);
+                this.addedTypes.add(InfoToggle.LOOKING_AT_CHUNK);
             }
         }
         else if (type == InfoToggle.BLOCK_PROPS)
