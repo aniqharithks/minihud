@@ -522,11 +522,13 @@ public class RenderHandler implements IRenderer
             this.addedTypes.add(InfoToggle.DIMENSION);
         }
         else if (type == InfoToggle.BLOCK_POS ||
+                 type == InfoToggle.BLOCK_IN_CHUNK ||
                  type == InfoToggle.CHUNK_POS ||
                  type == InfoToggle.REGION_FILE)
         {
             // Don't add the same line multiple times
             if (this.addedTypes.contains(InfoToggle.BLOCK_POS) ||
+                this.addedTypes.contains(InfoToggle.BLOCK_IN_CHUNK) ||
                 this.addedTypes.contains(InfoToggle.CHUNK_POS) ||
                 this.addedTypes.contains(InfoToggle.REGION_FILE))
             {
@@ -542,9 +544,16 @@ public class RenderHandler implements IRenderer
                 pre = " / ";
             }
 
+            if (InfoToggle.BLOCK_IN_CHUNK.getBooleanValue())
+            {
+                str.append(pre).append(String.format("Chunk Block: %d, %d, %d",
+                        pos.getX() & 0xF, pos.getY() & 0xF, pos.getZ() & 0xF));
+                pre = " / ";
+            }
+
             if (InfoToggle.CHUNK_POS.getBooleanValue())
             {
-                str.append(pre).append(String.format("Sub-Chunk: %d, %d, %d", chunkPos.x, pos.getY() >> 4, chunkPos.z));
+                str.append(pre).append(String.format("Chunk: %d, %d, %d", chunkPos.x, pos.getY() >> 4, chunkPos.z));
                 pre = " / ";
             }
 
@@ -556,14 +565,9 @@ public class RenderHandler implements IRenderer
             this.addLine(str.toString());
 
             this.addedTypes.add(InfoToggle.BLOCK_POS);
+            this.addedTypes.add(InfoToggle.BLOCK_IN_CHUNK);
             this.addedTypes.add(InfoToggle.CHUNK_POS);
             this.addedTypes.add(InfoToggle.REGION_FILE);
-        }
-        else if (type == InfoToggle.BLOCK_IN_CHUNK)
-        {
-            this.addLine(String.format("Block: %d, %d, %d within Sub-Chunk: %d, %d, %d",
-                        pos.getX() & 0xF, pos.getY() & 0xF, pos.getZ() & 0xF,
-                        chunkPos.x, pos.getY() >> 4, chunkPos.z));
         }
         else if (type == InfoToggle.BLOCK_BREAK_SPEED)
         {
