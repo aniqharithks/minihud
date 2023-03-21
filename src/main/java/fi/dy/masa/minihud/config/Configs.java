@@ -102,6 +102,7 @@ public class Configs implements IConfigHandler
         public static final ConfigBoolean       WEATHER_TIME                        = new ConfigBoolean("weatherTime", false, "Show weather cycle time instead of current weather.\n§eIntegrated servers only");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
+                // BOOLEANS
                 AXOLOTL_TOOLTIPS,
                 BEE_TOOLTIPS,
                 HONEY_TOOLTIPS,
@@ -131,12 +132,14 @@ public class Configs implements IConfigHandler
                 USE_TEXT_BACKGROUND,
                 WEATHER_TIME,
 
+                // HOTKEYS
                 MAIN_RENDERING_TOGGLE,
                 OPEN_CONFIG_GUI,
                 REQUIRED_KEY,
                 SET_DISTANCE_REFERENCE_POINT,
                 SHAPE_EDITOR,
 
+                // OPTION LISTS
                 BLOCK_GRID_OVERLAY_MODE,
                 LIGHT_LEVEL_MARKER_CONDITION,
                 LIGHT_LEVEL_MARKER_MODE,
@@ -144,6 +147,7 @@ public class Configs implements IConfigHandler
                 LIGHT_LEVEL_NUMBER_MODE,
                 HUD_ALIGNMENT,
 
+                // INPUTS (INTEGERS, DOUBLES, AND STRINGS)
                 BIOME_OVERLAY_RANGE,
                 BIOME_OVERLAY_RANGE_VERTICAL,
                 BLOCK_GRID_OVERLAY_RADIUS,
