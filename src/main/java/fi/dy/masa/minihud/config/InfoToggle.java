@@ -65,7 +65,8 @@ public enum InfoToggle implements IConfigInteger, IHotkeyTogglable
     TIME_REAL               ("infoTimeIRL",                 true,   1, "", "Show the current real time formatted according to dateFormatReal"),
     TIME_TOTAL_MODULO       ("infoTimeTotalModulo",         false, 34, "", "Show a modulo of the current total world time.\nSee Generic configs for the divisor."),
     TIME_WORLD              ("infoTimeWorld",               false,  2, "", "Show the current world time in ticks"),
-    TIME_WORLD_FORMATTED    ("infoWorldTimeFormatted",      false,  3, "", "Show the current world time formatted to days, hours, minutes");
+    TIME_WORLD_FORMATTED    ("infoWorldTimeFormatted",      false,  3, "", "Show the current world time formatted to days, hours, minutes"),
+    WEATHER                 ("infoWeather",                 false, 41, "", "Show the current overworld weather");
 
     public static final ImmutableList<InfoToggle> VALUES = ImmutableList.copyOf(values());
 

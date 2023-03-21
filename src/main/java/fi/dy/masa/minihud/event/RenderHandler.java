@@ -20,6 +20,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -47,6 +48,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.chunk.light.LightingProvider;
+import net.minecraft.world.level.ServerWorldProperties;
 import fi.dy.masa.malilib.config.HudAlignment;
 import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.interfaces.IRenderer;
@@ -957,6 +959,60 @@ public class RenderHandler implements IRenderer
         {
             this.getBlockProperties(mc);
         }
+        else if (type == InfoToggle.WEATHER)
+        {
+            StringBuilder str = new StringBuilder("Weather: ");
+            if (Configs.Generic.WEATHER_TIME.getBooleanValue() && mc.isIntegratedServerRunning())
+            {
+                ServerWorldProperties swp = (ServerWorldProperties)mc.getServer().getOverworld().getLevelProperties();
+                int clearTime = swp.getClearWeatherTime();
+                int rainTime = swp.getRainTime();
+                int thunderTime = swp.getThunderTime();
+                if (clearTime > 0)
+                {
+                    str.append(String.format("§aClear§r for %s", this.getSimpleTime(clearTime)));
+                }
+                else
+                {
+                    str.append(String.format("%s %s / %s %s",
+                            swp.isRaining() ? "§aRain§r for" : "§cRain§r in", this.getSimpleTime(rainTime),
+                            swp.isThundering() ? "§aThunder§r for" : "§cThunder§r in", this.getSimpleTime(thunderTime)));
+                }
+            }
+            else
+            {
+                ClientWorld cw = mc.world;
+                if (cw.isThundering())
+                {
+                    str.append("§cThunder");
+                }
+                else if (cw.isRaining())
+                {
+                    str.append("§eRain");
+                }
+                else
+                {
+                    str.append("§aClear");
+                }
+            }
+            this.addLine(str.toString());
+        }
+    }
+
+    private String getSimpleTime(int ticks)
+    {
+        if (ticks >= 24000)
+        {
+            int days = ticks / 24000;
+            return String.format("%d %s", days, (days == 1) ? "day" : "days");
+        }
+        if (ticks >= 1000)
+        {
+            int hours = ticks / 1000;
+            return String.format("%d %s", hours, (hours == 1) ? "hour" : "hours");
+        }
+        int minutes = ticks * 3 / 50;
+        return String.format("%d %s", minutes, (minutes == 1) ? "minute" : "minutes");
     }
 
     @Nullable

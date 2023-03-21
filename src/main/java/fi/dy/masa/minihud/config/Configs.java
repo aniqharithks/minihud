@@ -99,6 +99,7 @@ public class Configs implements IConfigHandler
         public static final ConfigBoolean       USE_CUSTOMIZED_COORDINATES          = new ConfigBoolean("useCustomizedCoordinateFormat", true, "Use the customized coordinate format string");
         public static final ConfigBoolean       USE_FONT_SHADOW                     = new ConfigBoolean("useFontShadow", false, "Use font shadow");
         public static final ConfigBoolean       USE_TEXT_BACKGROUND                 = new ConfigBoolean("useTextBackground", true, "Use a solid background color behind the text");
+        public static final ConfigBoolean       WEATHER_TIME                        = new ConfigBoolean("weatherTime", false, "Show weather cycle time instead of current weather.\n§eIntegrated servers only");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
                 AXOLOTL_TOOLTIPS,
@@ -128,6 +129,7 @@ public class Configs implements IConfigHandler
                 USE_CUSTOMIZED_COORDINATES,
                 USE_FONT_SHADOW,
                 USE_TEXT_BACKGROUND,
+                WEATHER_TIME,
 
                 MAIN_RENDERING_TOGGLE,
                 OPEN_CONFIG_GUI,
