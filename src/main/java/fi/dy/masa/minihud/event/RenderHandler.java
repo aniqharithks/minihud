@@ -594,18 +594,16 @@ public class RenderHandler implements IRenderer
         else if (type == InfoToggle.FACING)
         {
             Direction facing = entity.getHorizontalFacing();
-            String str = "Invalid";
-
-            switch (facing)
+            String str = switch (facing)
             {
-                case NORTH: str = "Negative Z"; break;
-                case SOUTH: str = "Positive Z"; break;
-                case WEST:  str = "Negative X"; break;
-                case EAST:  str = "Positive X"; break;
-                default:
-            }
+                case NORTH -> "North (-Z)";
+                case SOUTH -> "South (+Z)";
+                case WEST  -> "West (-X)";
+                case EAST  -> "East (+X)";
+                default    -> "Invalid";
+            };
 
-            this.addLine(String.format("Facing: %s (%s)", facing, str));
+            this.addLine(String.format("Facing: %s", str));
         }
         else if (type == InfoToggle.LIGHT_LEVEL)
         {
