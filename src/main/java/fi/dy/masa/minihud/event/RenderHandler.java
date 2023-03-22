@@ -32,6 +32,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -958,6 +959,14 @@ public class RenderHandler implements IRenderer
         else if (type == InfoToggle.BLOCK_PROPS)
         {
             this.getBlockProperties(mc);
+        }
+        else if (type == InfoToggle.INSOMNIA && mc.isIntegratedServerRunning())
+        {
+            int insomniaTime = mc.getServer().getPlayerManager().getPlayer(mc.player.getEntityName()).getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.TIME_SINCE_REST));
+            if (insomniaTime >= (Configs.Generic.INSOMNIA_START_TIME.getIntegerValue() * 1000))
+            {
+                this.addLine(String.format("%sInsomnia", (insomniaTime >= 72000) ? "§c" : "§e"));
+            }
         }
         else if (type == InfoToggle.WEATHER)
         {
