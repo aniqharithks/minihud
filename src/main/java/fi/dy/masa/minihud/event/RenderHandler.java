@@ -703,13 +703,29 @@ public class RenderHandler implements IRenderer
 
             if (InfoToggle.ROTATION_YAW.getBooleanValue())
             {
-                str.append(String.format("yaw: %.1f", MathHelper.wrapDegrees(entity.getYaw())));
+                float yaw = MathHelper.wrapDegrees(entity.getYaw());
+                try
+                {
+                    str.append(String.format(Configs.Generic.ROTATION_YAW_FORMAT_STRING.getStringValue(), yaw, yaw + 180.0f));
+                }
+                catch (Exception e)
+                {
+                    str.append(String.format("Yaw: %.1f", yaw));
+                }
                 pre = " / ";
             }
 
             if (InfoToggle.ROTATION_PITCH.getBooleanValue())
             {
-                str.append(pre).append(String.format("pitch: %.1f", MathHelper.wrapDegrees(entity.getPitch())));
+                float pitch = MathHelper.wrapDegrees(entity.getPitch());
+                try
+                {
+                    str.append(pre).append(String.format(Configs.Generic.ROTATION_PITCH_FORMAT_STRING.getStringValue(), pitch, -pitch));
+                }
+                catch (Exception e)
+                {
+                    str.append(String.format("Pitch: %.1f", pitch));
+                }
                 pre = " / ";
             }
 

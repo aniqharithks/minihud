@@ -83,6 +83,8 @@ public class Configs implements IConfigHandler
         public static final ConfigHotkey        OPEN_CONFIG_GUI                     = new ConfigHotkey("openConfigGui", "H,C", "A hotkey to open the in-game Config GUI");
         public static final ConfigBoolean       REQUIRE_SNEAK                       = new ConfigBoolean("requireSneak", false, "Require the player to be sneaking to render the info line HUD");
         public static final ConfigHotkey        REQUIRED_KEY                        = new ConfigHotkey("requiredKey", "", KeybindSettings.MODIFIER_INGAME_EMPTY, "Require holding this key to render the HUD");
+        public static final ConfigString        ROTATION_PITCH_FORMAT_STRING        = new ConfigString("rotationPitchFormatString", "Pitch: %.1f", "The format string for the pitch rotation info line.\nArguments (floats):\n1: Minecraft default (-90: up, 0: horizon, 90: down)\n2: Horizontal coordinate system (-90: down, 0: horizon, 90: up)\nSee Java's Formatter class for more information.");
+        public static final ConfigString        ROTATION_YAW_FORMAT_STRING          = new ConfigString("rotationYawFormatString", "Yaw: %.1f", "The format string for the yaw rotation info line.\nArguments (floats):\n1: Minecraft default (-180: North, -90: East, 0: South, 90: West)\n2: Horizontal coordinate system (0: North, 90: East, 180: South, 270: West)\nSee Java's Formatter class for more information.");
         public static final ConfigHotkey        SET_DISTANCE_REFERENCE_POINT        = new ConfigHotkey("setDistanceReferencePoint", "", "A hotkey to store the player's current position\nas the reference point for the distance info line type");
         public static final ConfigHotkey        SHAPE_EDITOR                        = new ConfigHotkey("shapeEditor", "", "Opens the Shape Editor GUI for the selected shape");
         public static final ConfigBoolean       SHULKER_BOX_PREVIEW                 = new ConfigBoolean("shulkerBoxPreview", false, "Enables rendering a preview of the Shulker Box contents,\nwhen you hold shift while hovering over a Shulker Box item");
@@ -167,6 +169,8 @@ public class Configs implements IConfigHandler
                 LIGHT_LEVEL_THRESHOLD_SAFE,
                 LIGHT_LEVEL_RENDER_OFFSET,
                 MAP_PREVIEW_SIZE,
+                ROTATION_PITCH_FORMAT_STRING,
+                ROTATION_YAW_FORMAT_STRING,
                 SLIME_CHUNK_OVERLAY_RADIUS,
                 SPAWNABLE_COLUMNS_OVERLAY_RADIUS,
                 TEXT_POS_X,
