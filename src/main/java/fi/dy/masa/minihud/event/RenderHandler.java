@@ -726,7 +726,6 @@ public class RenderHandler implements IRenderer
                 {
                     str.append(String.format("Pitch: %.1f", pitch));
                 }
-                pre = " / ";
             }
 
             this.addLine(str.toString());
